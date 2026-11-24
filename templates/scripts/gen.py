@@ -127,7 +127,7 @@ c=canvas.Canvas(f'{out}/{fname}_template_FULLSIZE_{int(W)}x{H}in.pdf', pagesize=
 c.setTitle(f'{name} - 1:1 half outline template'); c.scale(72,72)
 c.saveState(); c.translate(ML,MB); drawing(c)
 checkbars(c, 1.5, 12.8)
-c.setFont('Helvetica',0.12); c.setFillColor(GRAY); c.drawString(0.1,-0.85,'Tips end in a small flat exactly as in the CAD file (tail ~3/4", nose ~9/16" wide, 1/16" short of the nominal tip) - round them off by hand.')
+c.setFont('Helvetica',0.12); c.setFillColor(GRAY); c.drawString(0.1,-0.85,f'Ends are drawn exactly as in the CAD file: tail end {frac(2*OUT[1][1])} wide, nose end {frac(2*OUT[-2][1])} wide - round the corners off by hand.')
 # title block
 TX=L-31; TY=H-MB-0.8
 c.setFillColor(black); c.setFont("Helvetica-Bold",0.45); c.drawString(TX,TY,f'{name}  -  HALF OUTLINE TEMPLATE  -  FULL SIZE 1:1')
