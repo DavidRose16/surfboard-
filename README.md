@@ -18,12 +18,12 @@ Carried over from Sam's private project on 2026-11-21. Edit designs in Fusion 36
 
 ## NEW: squash-tail 6'6" v1 (flat bottom), current design to print
 Designed from scratch for a 5'6", 135 lb beginner-to-intermediate rider, small to medium Rockaway beach break, on the 7'0" x 3 1/4" EPS blank with the black PVC stringer. The Hypto Krypto files above are kept for reference. Use these files for this board.
-- Files: `designs/squash_6-6_v1_flat.step` (mm, like the other STEP files), `templates/squash_6-6_v1_template_FULLSIZE_85x18in.pdf` (print shop, 100%), `templates/squash_6-6_v1_template_TILED_letter_18pages.pdf` (home backup), `templates/squash_6-6_v1_outline.dxf` (inches, CAD/CNC/laser). Source: `templates/scripts/squash_6-6_v1_model.py` (edit the tables and rerun, then run `gen.py`).
+- Files: `designs/squash_6-6_v1_flat.step` (mm, like the other STEP files), `templates/squash_6-6_v1_template_FULLSIZE_85x18in.pdf` (print shop, 100%), `templates/squash_6-6_v1_template_STAPLES_36x48in.pdf` (one 36 x 48 sheet for Staples or a copy shop: two pieces that overlap and register on four crosses, with rocker, bottom, thickness and rail marks, same layout as the Hypto Staples sheet), `templates/squash_6-6_v1_template_TILED_letter_18pages.pdf` (home backup), `templates/squash_6-6_v1_outline.dxf` (inches, CAD/CNC/laser). Source: `templates/scripts/squash_6-6_v1_model.py` (edit the tables and rerun, then run `gen.py` and `gen_staples.py`). The nose outline was faired with a smoothing spline (max 0.07" change) before the Staples sheet was made.
 - Size: 6'6" (78"), max width 21.48" at 40.5" from tail (1.5" forward of center), 16.8" wide at 12" from tail, 17.1" at 12" from nose, 2 15/16" thick at the thickest point, about 39.6 L.
 - Shape: squash tail, medium-full rails with a slight tuck near the tail, medium rocker (4 1/4" nose, 2" tail, continuous curve), flat bottom with a mild vee out the tail (a single concave is one setting in the script).
 - Fins: glass-on thruster (proposed). Center fin base 3 1/4" to 7 11/16" from tail on the stringer, 0 deg. Side fins: base 6 9/16" to 11" from tail, midpoint 1 1/4" in from the rail, 3/16" toe-in over the base, 5 deg cant. The back end of the side fin base is close to the rail (about 3/8"), so check it on the blank before marking.
 - Leash plug: deck, on stringer, 2 1/2" from tail, 1" hole.
-- Check before cutting: the blank must be at least 78" long and about 21 1/2" wide (measure it). The outline ends are flat as drawn (tail end about 5 3/8" wide, nose end about 1" wide), round them off by hand.
+- Check before cutting: the blank must be at least 78" long and about 21 1/2" wide (measure it). The outline ends are flat as drawn (tail end about 5 3/8" wide, nose end about 7/8" wide), round them off by hand.
 - Rule: edit the design in Fusion 360, save as a new STEP with a new version name, and regenerate the templates from it.
 
 ## Shared design (both boards)

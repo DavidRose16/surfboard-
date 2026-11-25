@@ -22,6 +22,13 @@ def interp(pts):
 WS, TS = 1.018, 1.07   # width / thickness scale (max ~21.5" x 2 15/16")
 W = [(x, w*WS if 6<x<72 else w) for x,w in W]
 hw_f = lambda x: float(interp(W)(x))/2
+# Fair the nose: the piecewise width table leaves a wobble around 70-75" from the tail, so the last 22" use a smoothing spline
+# (max change 0.07"). Widths at 12" from the nose and at 72" are unchanged to within 1/16".
+from scipy.interpolate import UnivariateSpline as _US
+_raw_hw = hw_f
+_xn = np.arange(56.0, L+1e-9, 0.1)
+_nose = _US(_xn, np.array([_raw_hw(x) for x in _xn]), s=0.2, k=4)
+hw_f = lambda x: float(_nose(x)) if x >= 56.0 else _raw_hw(x)
 th_f = interp(T)
 def rocker(x):
     sn = max(0,(x-30)/(L-30)); st = max(0,(28-x)/28)
@@ -48,6 +55,21 @@ def build(tscale=TS, **kw):
     return cq.Solid.makeLoft([section(x,tscale,**kw) for x in XS], True)
 
 
+def marks(out):
+    """Numbers the Staples template prints along the stringer: rocker gap, thickness, bottom and rail zones."""
+    import json, os
+    def off0(x):
+        return CONCAVE*smooth(14,30,x)*(1-smooth(52,68,x)) - VEE*(1-smooth(6,34,x))
+    xs = [round(i*0.25, 2) for i in range(int(L/0.25)+1)]
+    m = {
+      "rocker": [[x, rocker(x)+off0(x)] for x in xs],            # gap under the stringer, bottom-down on a flat floor
+      "thick":  [[x, float(th_f(x))*TS - off0(x)] for x in xs],  # deck to bottom on the stringer
+      "tail_rocker_from": 28.0, "nose_rocker_from": 30.0,        # where the bottom starts curving up (from tail / from tail)
+      "vee": VEE, "vee_to": 34.0, "concave": CONCAVE,
+      "rail_zones": [[0, 8, "red"], [8, 26, "orange"], [26, 66, "green"], [66, L, "blue"]],
+    }
+    json.dump(m, open(os.path.join(out, "squash_6-6_v1_marks.json"), "w"))
+
 def main(out):
     import json, math, os
     os.makedirs(out, exist_ok=True)
@@ -70,6 +92,7 @@ def main(out):
     A, B = np.array([base0, yb]), np.array([base1, yf])
     side = [list(A-n), list(A+n), list(B-n), list(B+n)]
     ctr = [[3.25,-0.215],[3.25,0.215],[7.6875,-0.215],[7.6875,0.215]]
+    marks(out)
     json.dump({"fins":[ctr, side, [[p[0],-p[1]] for p in side]], "leash":{"x":2.5,"y":0.0,"r":0.5}},
               open(os.path.join(out, "squash_6-6_v1_fins.json"), "w"), indent=1)
 
